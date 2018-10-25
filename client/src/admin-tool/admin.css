@@ -1,0 +1,20 @@
+
+.sidebar-admin {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 80vh;
+    justify-content: space-evenly;
+    border-right: 1px solid #84898e;
+    border-top: 1px solid #84898e;
+    border-bottom: 1px solid #84898e;
+    border-radius: 10px;
+}
+
+.sidebar-admin .btn-outline-success {
+    margin-top:5px !important;
+}
+
+.sidebar-admin .admin-search .form-group {
+    flex-direction: column;
+}
