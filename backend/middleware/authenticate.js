@@ -6,6 +6,7 @@ const JWTStrategy   = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 
 const salt = "wintersheart12";
+const adminSalt = "chapterhouse";
 
 // used to serialize the user for the session
 passport.serializeUser(function(user, done) {
@@ -39,7 +40,7 @@ passport.use('login', new LocalStrategy({
 
 passport.use('user-jwt', new JWTStrategy({
     secretOrKey: salt,
-    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('jwt')
+    jwtFromRequest: ExtractJWT.fromHeader('Authorization')
 }, (payload, done) => {
     return UserModel.findById(payload._id).then(user => {
         done(null, user);
@@ -47,6 +48,21 @@ passport.use('user-jwt', new JWTStrategy({
                     .catch(e => {
                         done(e, null);
                     });
+}));
+
+passport.use('general-jwt', new JWTStrategy({
+    jwtFromRequest: ExtractJWT.fromHeader('Authorization'),
+    secretOrKey:salt || adminSalt
+}, (payload, done) => {
+    if(payload._id){
+        done(null, {
+            isValid:true
+        });
+    }
+    else {
+        const e = new Error("No user or Bad Authentication");
+        done(e, null);
+    }
 }));
 
 module.exports = {passport};
