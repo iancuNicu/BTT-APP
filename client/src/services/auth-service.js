@@ -15,8 +15,7 @@ const AuthService  = {
           isAdmin: store.getState().isAdmin,
           isLogged: store.getState().isLogged
         };
-    }
-
+    },
 };
 
 export default AuthService

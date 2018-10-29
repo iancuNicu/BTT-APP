@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactPlayer from 'react-player';
 
 const VideoView = ({videoID}) => {
 
@@ -6,9 +7,7 @@ const VideoView = ({videoID}) => {
 
     return(
         <div className="video-wrapper">
-            <video controls>
-                <source src={url} />
-            </video>
+            <ReactPlayer url={url} playing controls={true} />
         </div>
     );
 

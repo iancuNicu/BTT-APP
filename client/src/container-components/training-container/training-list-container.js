@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import { withCookies } from 'react-cookie';
-import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import TrainingCard from "../../view-components/training-view/training-card";
 import AuthService from '../../services/auth-service';
-import AdminSidebar from "../../admin-tool/admin-sidebar";
-import AdminButtonConstructor from "../../admin-tool/admin-button-constructor";
 
 import '../../view-components/training-view/training.css';
 
@@ -62,8 +59,7 @@ class TrainingList extends Component {
             let newTrainingList;
             let permissions = AuthService.getPermissions();
             if(res && res.data){
-                newTrainingList = this.state.res.data.slice();
-                newTrainingList.splice(0, res.data.length);
+                newTrainingList = res.data.splice(0, res.data.length);
                 this.setState({
                     trainingList: newTrainingList,
                     permissions
@@ -77,29 +73,18 @@ class TrainingList extends Component {
         });
     };
 
-    newTraining = () => {
-        this.props.history.push('/new-training');
-    };
-
     render(){
         const list = this.state.trainingList;
         //also set a loading spinner
 
         return(
             <div>
-            <h1>Admin Training !</h1>
             <div className="training-wrapper">
-                <AdminSidebar/>
-                <div className="training-list-wrapper">
-                    <div className="btn-group">
-                        <button className="btn btn-outline-success" onClick={this.newTraining}>
-                            Adauga Training
-                        </button>
-                    </div>
+                <div className="training-container">
                     <div className="training-list-wrapper">
                         {this.verifyToken() ?
                             list.map(
-                            training => ( <TrainingCard data={training} permissions={this.state.permissions} /> )
+                            training => ( <TrainingCard data={training} key={training._id} permissions={this.state.permissions} /> )
                             )
                         : undefined}
                     </div>
@@ -111,4 +96,4 @@ class TrainingList extends Component {
 
 }
 
-export default withRouter(withCookies(TrainingList));
+export default withCookies(TrainingList);

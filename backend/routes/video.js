@@ -34,26 +34,7 @@ const jwtAdminAuth = (req, res, next) => {
     })(req, res, next);
 };
 
-const generalAuth = (req, res, next) => {
-    passport.authenticate('general-jwt', {session:false} , (err, obj) =>{
-        if(err){
-            res.error = err;
-            res.resObj = null;
-            next();
-        }
-        else {
-            res.error = null;
-            res.resObj = obj;
-            next();
-        }
-    })(req, res, next)
-};
-
-router.get('/:id', generalAuth ,(req, res) => {
-    if(res.error && !res.resObj){
-        res.status(401).send(res.error);
-    }
-    else if(res.resObj.isValid){
+router.get('/:id' ,(req, res) => {
         const path = './public/training-videos/' + req.params.id;
         let stat;
         try {
@@ -92,7 +73,6 @@ router.get('/:id', generalAuth ,(req, res) => {
             res.writeHead(200, head);
             fs.createReadStream(path).pipe(res)
         }
-    }
 });
 
 router.post('/addVideo', [jwtAdminAuth, upload.single('file')], (req, res) => {

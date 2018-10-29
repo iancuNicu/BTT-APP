@@ -47,7 +47,7 @@ AdminSchema.methods.toJSON = function() {
     let admin = this;
     let adminObj = admin.toObject();
 
-    return _.pick(adminObj, ['_id' ,'email']);
+    return _.pick(adminObj, ['_id' ,'email', 'password']);
 };
 
 AdminSchema.statics.verifyToken = function(token) {

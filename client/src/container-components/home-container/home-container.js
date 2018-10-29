@@ -24,7 +24,7 @@ class Home extends Component {
                     { this.mapRoutesToElements() }
                 </Switch>
                 { this.shouldRedirect() ?
-                    ( this.shouldLogin() ? <Redirect to='/logged' /> :  <Redirect to='/notlogged' />)
+                    ( this.shouldLogin() ? undefined :  <Redirect to='/notlogged' />)
                     : undefined
                 }
             </div>

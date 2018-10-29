@@ -32,9 +32,9 @@ const routes = [
         name: 'singup'
     },
     {
-        path: '/logged',
+        path: '/',
         component: MainUserLogged,
-        exact: true,
+        exact: false,
         name: 'logged',
         protected: true
     },
@@ -47,14 +47,22 @@ const routes = [
     {
         path: '/admin',
         component: AdminView,
-        exact: true,
+        exact: false,
         name: 'admin-main'
     },
     {
-        path: '/admin/training' || '/training',
+        path: '/admin/training',
         component: TrainingView,
         exact: true,
-        name: 'training-list'
+        name: 'training-admin-view',
+        protected: true
+    },
+    {
+        path: '/training',
+        component: TrainingView,
+        exact: true,
+        name: 'training-user-view',
+        protected: true
     },
     {
       path: '/new-training',
@@ -66,7 +74,8 @@ const routes = [
       path: '/training-page/:id',
       component: TrainingPage,
       exact: true,
-      name: 'training-page' + Math.floor(Math.random() * 1000)
+      name: 'training-page' + Math.floor(Math.random() * 1000),
+      protected: true
     },
     {
       path: '/video/:id',

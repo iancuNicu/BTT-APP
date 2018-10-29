@@ -51,9 +51,13 @@ passport.use('user-jwt', new JWTStrategy({
 }));
 
 passport.use('general-jwt', new JWTStrategy({
-    jwtFromRequest: ExtractJWT.fromHeader('Authorization'),
-    secretOrKey:salt || adminSalt
+    jwtFromRequest: function getTokenFromHeader(req) {
+        console.log("Auth token ", req.headers.authorization);
+        return req.headers.authorization;
+    },
+    secretOrKey:adminSalt
 }, (payload, done) => {
+    console.log("Auth middl ", payload);
     if(payload._id){
         done(null, {
             isValid:true

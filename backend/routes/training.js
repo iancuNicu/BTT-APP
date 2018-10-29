@@ -37,11 +37,8 @@ const jwtUserAuth = (req, res, next) => {
 
 const getTrainingCards = () => {
    return TrainingModel.find({}).limit(5).then(trainingList => {
-        let picked = trainingList.forEach((training) => {
-            return _.pick(training, ['Title', '_id', 'Description']);
-        });
         return {
-            picked,
+            trainingList,
             error: null
         };
     }).catch(e => ({
@@ -55,13 +52,14 @@ trainingRouter.get('/', jwtUserAuth, (req, res) => {
         res.status(400).send(res.error);
     }
     else {
-        let trainingCards = getTrainingCards();
-        if(!trainingCards.error){
-            res.status(200).send(trainingCards.picked);
-        }
-        else {
-            res.status(400).send(trainingCards.error);
-        }
+         getTrainingCards().then(trainingCards => {
+            if(!trainingCards.error){
+                res.status(200).send(trainingCards.trainingList);
+            }
+            else {
+                res.status(400).send(trainingCards.error);
+            }
+        });
     }
 });
 
