@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const salt = "wintersheart12";
+const refreshSalt = "aplayerintheshadows";
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -22,18 +23,35 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength:6
-    }
+    },
+    tokens: {
+            refreshToken: {
+                type: String,
+                required: false,
+                minlength: 6
+            },
+            refreshExpired: false
+        }
 });
 
 UserSchema.methods.generateAuthToken = function() {
   const user = this;
   const access = 'auth';
 
-  const token = jwt.sign({_id: user._id.toHexString(), access}, salt, { expiresIn: '0.2h' });
+  return jwt.sign({_id: user._id.toHexString(), access}, salt, { expiresIn: 300 });
+};
 
-  return user.save().then(() => {
-      return token;
-  });
+UserSchema.methods.generateRefreshToken = function(){
+    const user = this;
+    const access = 'refresh-auth';
+    const date = new Date();
+    const refreshToken = jwt.sign({_id: user._id.toHexString(), access, date},refreshSalt, { expiresIn: '7d' } );
+    user.tokens.refreshToken = refreshToken;
+    return user.save().then((user) => ({
+        user,
+        refreshToken
+    }))
+               .catch(e => e);
 };
 
 UserSchema.statics.verifyToken = function(token) {
@@ -62,7 +80,7 @@ UserSchema.methods.toJSON = function() {
   let user = this;
   let userObject = user.toObject();
 
-  return _.pick(userObject, ['_id' ,'email', 'password']);
+  return _.pick(userObject, ['_id' ,'email']);
 };
 
 UserSchema.pre('save', function(next){

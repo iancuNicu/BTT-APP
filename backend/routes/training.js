@@ -3,7 +3,7 @@ var trainingRouter = express.Router();
 var adminTrainingRouter = express.Router();
 var {TrainingModel} = require('./../db/models/TrainingModel');
 const _ = require('lodash');
-const {passport} = require('../admin/admin-auth');
+const {passport} = require('../middleware/routes-auth');
 
 const jwtAdminAuth = (req, res, next) => {
     passport.authenticate('admin-jwt', {session:false} ,(err, token) => {
@@ -20,18 +20,16 @@ const jwtAdminAuth = (req, res, next) => {
 };
 
 const jwtUserAuth = (req, res, next) => {
-  passport.authenticate('user-jwt', (err, token) => {
-      if(err){
-          res.token = null;
+    passport.authenticate('user-jwt',(err, user) => {
+      if(err && !user){
+          res.user = null;
           res.error = err;
           next();
       }
       else {
-          res.token = token;
+          res.user = user;
           next();
       }
-  },{
-      session:false
   })(req, res);
 };
 
@@ -43,12 +41,12 @@ const getTrainingCards = () => {
         };
     }).catch(e => ({
         picked: null,
-       error: e
+        error: e
    }));
 };
 
-trainingRouter.get('/', jwtUserAuth, (req, res) => {
-    if(res.error){
+trainingRouter.get('/',  jwtUserAuth, (req, res) => {
+    if(res.error && !res.user){
         res.status(400).send(res.error);
     }
     else {

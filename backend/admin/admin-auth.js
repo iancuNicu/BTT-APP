@@ -3,8 +3,6 @@ const JWTStrategy   = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const LocalStrategy = require('passport-local').Strategy;
 const {AdminModel} = require('./AdminModel');
-const cookieParser = require('cookie-parser');
-const jwt = require('jsonwebtoken');
 
 const adminSalt = "chapterhouse";
 

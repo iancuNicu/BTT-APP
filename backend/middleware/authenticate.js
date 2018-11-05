@@ -10,7 +10,7 @@ const adminSalt = "chapterhouse";
 
 // used to serialize the user for the session
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user.email);
 });
 
 // used to deserialize the user
@@ -38,26 +38,12 @@ passport.use('login', new LocalStrategy({
     }
 ));
 
-passport.use('user-jwt', new JWTStrategy({
-    secretOrKey: salt,
-    jwtFromRequest: ExtractJWT.fromHeader('Authorization')
-}, (payload, done) => {
-    return UserModel.findById(payload._id).then(user => {
-        done(null, user);
-    })
-                    .catch(e => {
-                        done(e, null);
-                    });
-}));
-
 passport.use('general-jwt', new JWTStrategy({
     jwtFromRequest: function getTokenFromHeader(req) {
-        console.log("Auth token ", req.headers.authorization);
         return req.headers.authorization;
     },
     secretOrKey:adminSalt
 }, (payload, done) => {
-    console.log("Auth middl ", payload);
     if(payload._id){
         done(null, {
             isValid:true

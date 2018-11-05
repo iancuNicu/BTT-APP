@@ -1,16 +1,22 @@
 var express = require('express');
 var router = express.Router();
+const TokenController = require('../controllers/token-controller');
 
-/* GET home page. */
-router.get('/', function(req, res) {
-  //if user credentials are saved in browser history, check that they are a valid user
-  //if valid user then send user object back to session
-  //if not redirect to main page login-signUp
+router.get('/', function(req, res){
     res.send({wentWell: 'YESSSS'});
 });
 
-router.post('/', (req, res) => {
-    res.send({});
+router.post('/token', [TokenController.jwtExpireToken, TokenController.refreshTokenCheck], (req, res) => {
+    if(res.expired){
+        res.header('Authorization', res.token).send({
+            expired:true
+        })
+    }
+    else {
+        res.send({
+            expired: false
+        });
+    }
 });
 
 module.exports = router;

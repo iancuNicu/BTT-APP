@@ -3,9 +3,11 @@ const initialState = {
     isLogged: false,
     isAdmin: false,
     admin: null,
-    hasPaid: false
+    hasPaid: false,
+    refreshToken: null,
+    trainingList: []
 };
-
+//a type to change the refresh token
 const SUBMIT = 'SUBMIT';
 const SUBMIT_ADMIN = 'SUBMIT_ADMIN';
 
@@ -16,7 +18,8 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLogged: true,
-                user: user
+                user: user.user,
+                refreshToken: user.refreshToken
             }
         }
         case SUBMIT_ADMIN: {

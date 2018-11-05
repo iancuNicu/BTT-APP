@@ -7,7 +7,13 @@ const VideoView = ({videoID}) => {
 
     return(
         <div className="video-wrapper">
-            <ReactPlayer url={url} playing controls={true} />
+            <ReactPlayer url={url} playing controls config={{
+                file: {
+                    attributes: {
+                        controlsList: 'nodownload'
+                    }
+                }
+            }} className='react-player'/>
         </div>
     );
 

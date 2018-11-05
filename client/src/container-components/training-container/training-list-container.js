@@ -42,15 +42,28 @@ class TrainingList extends Component {
             url,
             credentials: 'include',
             headers: headers
-        }).then(res => {
-           return res
         });
     };
 
     componentDidMount(){
         // set a loading spinner to wait until data is returned
         // state.loading = true
-        this.getInitState();
+        let headers = {
+            'Accept' : 'application/json',
+            'Content-Type': 'application/json',
+            'authorization':this.props.cookies.get('auth-token')
+        };
+        AuthService.checkToken(headers).then(res => {
+            if(res.data.expired){
+                this.props.cookies.set('auth-token', res.headers.authorization);
+            }
+            if(res.data.not_logged){
+                this.props.cookies.remove('auth-token');
+                this.props.history.push('/notlogged');
+            }
+            this.getInitState();
+        })
+                    .catch(e => console.log(e));
     }
 
      getInitState = () => {
@@ -70,7 +83,7 @@ class TrainingList extends Component {
                     permissions: permissions
                 })
             }
-        });
+        }).catch(e => console.log(e));
     };
 
     render(){

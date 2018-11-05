@@ -40,9 +40,17 @@ router.post('/', (req, res, next) => {
     }
 , (req, res) => {
     const user = res.user;
-    return user.generateAuthToken().then((token) => {
-        res.header('Authorization', token).send(user);
-    }).catch(e => res.status(400).send(e));
+    const token = user.generateAuthToken();
+    if(!token){
+        const e = new Error('Bad Authentication');
+        res.status(401).send(e);
+    }
+    else {
+        user.generateRefreshToken().then(obj => {
+            res.header('Authorization', token).send(obj);
+        })
+            .catch(e => res.status(400).send(e))
+    }
 });
 
 
