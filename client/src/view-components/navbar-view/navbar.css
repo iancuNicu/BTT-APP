@@ -1,0 +1,8 @@
+.navbar-nav {
+    flex-direction: row !important;
+    justify-content: space-evenly;
+}
+
+.navbar-container {
+    min-height: 3.5rem;
+}
