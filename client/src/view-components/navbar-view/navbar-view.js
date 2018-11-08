@@ -6,7 +6,7 @@ import './navbar.css';
 const NavbarView = () => {
 
     return(
-        <div className="container navbar-container">
+        <div className="container fixed-top navbar-container">
             <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
                 <div className="navbar-collapse">
                     <ul className="navbar-nav">
@@ -23,7 +23,7 @@ const NavbarView = () => {
                             <NavLink className="nav-link" to="/a">Oddsmatching</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/b">Calculator</NavLink>
+                            <NavLink className="nav-link" to="/calculator">Calculator</NavLink>
                         </li>
                     </ul>
                 </div>

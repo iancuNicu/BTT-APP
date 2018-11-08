@@ -1,27 +1,32 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import TrainingView from './../training-view/training-view';
-import OfferList from "../../container-components/offers-container/offers-list";
-import TrainingPage from './../training-view/training-page';
 import NavbarView from './../navbar-view/navbar-view';
+
+import routes from '../../routes/routes';
 
 import './main-page.css';
 
-const MainUserLogged = ({history, location}) => {
+const MainUserLogged = () => {
+
+    const reqComponentPaths = ['/training-page/:id', '/offers', '/training', '/calculator'];
+
+    const mapRoutes = () => {
+        const reqRoutes = routes.filter(route => {
+            return reqComponentPaths.indexOf(route.path) >= 0 ? route : null;
+        });
+
+        return reqRoutes.map(route => <Route key={`route.name`} {...route} />);
+    };
 
     return (
         <div className="main-container">
-            <h1>General info about oddsmatching!</h1>
             <NavbarView />
-            <Switch>
-                <Route path="/training"
-                       render={() => <TrainingView />} />
-                <Route path="admin/offers"
-                       render={() => <OfferList history={history}
-                                                location ={location}/>} />
-                <Route path="/training-page/:id" component={TrainingPage} />
-                <Route path="/offers" component={OfferList} />
-            </Switch>
+            <div className="main-wrapper">
+                <h1>General info about oddsmatching!</h1>
+                <Switch>
+                    { mapRoutes() }
+                </Switch>
+            </div>
         </div>
     );
 

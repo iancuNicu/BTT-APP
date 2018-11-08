@@ -10,6 +10,7 @@ import TrainingForm from '../container-components/training-container/training-fo
 import TrainingPage from '../view-components/training-view/training-page';
 import VideoView from './../view-components/video-view/video';
 import OfferList from './../container-components/offers-container/offers-list';
+import CalculatorComponent from './../container-components/calculator-container/calculator-component';
 import ErrorPage from '../view-components/error-view/error-page';
 
 const routes = [
@@ -77,6 +78,13 @@ const routes = [
         exact: true,
         name: 'offers-list',
         protected: true
+    },
+    {
+      path: '/calculator',
+      component: CalculatorComponent,
+      exact:true,
+      name: 'calculator',
+      protected: true
     },
     {
       path: '/video/:id',

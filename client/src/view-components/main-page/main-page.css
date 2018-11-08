@@ -16,7 +16,17 @@
     transition: opacity 300ms ease-in;
 }
 
-.main-container {
+.main-container, .main-wrapper  {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+}
+
+.main-wrapper {
+    min-height: 43rem;
+}
+
+.main-container {
+    overflow-y: auto;
+    min-height: 42rem;
 }

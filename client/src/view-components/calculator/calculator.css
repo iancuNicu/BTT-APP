@@ -1,0 +1,38 @@
+.bookmaker-wrapper, .exchange-wrapper {
+    display: flex;
+    justify-content: space-around;
+    padding: 5px;
+    border: 1px solid #007bff;
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+
+.calculator-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 30rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.calculate-button {
+    width: 20%;
+    margin: 0 auto;
+}
+
+.result-wrapper {
+    line-height: 1.2;
+}
+
+p {
+    font-size: 14px;
+}
+
+.positive-pr {
+    color: darkgreen;
+}
+
+.negative-pr {
+    color:red
+}

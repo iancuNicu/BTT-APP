@@ -36,6 +36,20 @@ const AuthService  = {
         else {
            return Promise.resolve(response);
         }
+    },
+
+    checkTokenNoPromise: async function(headers){
+        const response = await axios({
+            method:'post',
+            url:tokenUrl,
+            data: {
+                _id: store.getState().user._id,
+                refreshToken: store.getState().refreshToken
+            },
+            credentials: 'include',
+            headers: headers
+        });
+        return !(response instanceof Error);
     }
 
 };
