@@ -5,6 +5,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+require('dotenv').config();
 
 var {passport} = require('./admin/admin-auth');
 
@@ -20,21 +21,21 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(passport.initialize());
 app.use(passport.session());
 
-var indexRouter = require('./routes/index');
-var signUpRouter = require('./routes/signup');
-var loginRouter = require('./routes/login');
-var homeRouter = require('./routes/home');
-var adminRouter = require('./admin/admin-route');
-var {adminTrainingRouter} = require('./routes/training');
-var {trainingRouter}  = require('./routes/training');
-var videoRouter = require('./routes/video');
+const indexRouter = require('./routes/index');
+const signUpRouter = require('./routes/signup');
+const loginRouter = require('./routes/login');
+const adminRouter = require('./admin/admin-route');
+const {adminTrainingRouter} = require('./routes/training');
+const {trainingRouter}  = require('./routes/training');
+const videoRouter = require('./routes/video');
+const bettingRouter = require('./routes/betting');
 
 app.use(function(req, res, next) {
     res.set({
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': '*',n
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        'Access-Control-Expose-Headers': 'Authorization'
+        'Access-Control-Expose-Headers': 'Authorization, Accept, X-Application'
     });
     next();
 });
@@ -42,11 +43,11 @@ app.use(function(req, res, next) {
 app.use('/api/', indexRouter);
 app.use('/api/signup', signUpRouter);
 app.use('/api/login', loginRouter);
-app.use('/api/home', homeRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/training', trainingRouter);
 app.use('/api/admin/training', adminTrainingRouter);
 app.use('/api/video', videoRouter);
+app.use('/api/betting', bettingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

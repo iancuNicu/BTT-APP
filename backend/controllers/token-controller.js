@@ -50,6 +50,20 @@ const TokenController = {
         }
     },
 
+     jwtAuth : (req, res, next) => {
+        passport.authenticate('jwt', (err, user) => {
+            if(err){
+                res.status(400).send(err);
+            }
+            else{
+                res.user = user;
+                next();
+            }
+        }, {
+            session:false
+        })(req, res);
+    }
+
 };
 
 module.exports = TokenController;

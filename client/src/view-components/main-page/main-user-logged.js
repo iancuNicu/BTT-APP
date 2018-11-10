@@ -8,7 +8,8 @@ import './main-page.css';
 
 const MainUserLogged = () => {
 
-    const reqComponentPaths = ['/training-page/:id', '/offers', '/training', '/calculator'];
+    const reqComponentPaths = ['/training-page/:id', '/offers', '/training', '/calculator',
+            '/admin', '/admin/training', '/new-training'];
 
     const mapRoutes = () => {
         const reqRoutes = routes.filter(route => {
