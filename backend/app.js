@@ -32,7 +32,7 @@ const bettingRouter = require('./routes/betting');
 
 app.use(function(req, res, next) {
     res.set({
-        'Access-Control-Allow-Origin': '*',n
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
         'Access-Control-Expose-Headers': 'Authorization, Accept, X-Application'
@@ -51,16 +51,26 @@ app.use('/api/betting', bettingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  if(res.body.token){
+      next();
+  }
+  else{
+      next(createError(404));
+  }
 });
 
 // error handler
-app.use(function(err, req, res) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function(err, req, res, next) {
+  if(req.token || res.token){
+      next();
+  }
+  else {
+      // set locals, only providing error in development
+      res.locals.message = err.message;
+      res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  res.status(err.status || 500);
+      res.status(err.status || 500);
+  }
 });
 
 module.exports = app;

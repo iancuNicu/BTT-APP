@@ -2,6 +2,7 @@ const {passport} = require('./../admin/admin-auth');
 const passportJWT = require("passport-jwt");
 const JWTStrategy   = passportJWT.Strategy;
 const {UserModel} = require('./../db/models/UserModel');
+const jwt = require('jsonwebtoken');
 
 const salt = "wintersheart12";
 

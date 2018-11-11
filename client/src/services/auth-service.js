@@ -19,10 +19,10 @@ const AuthService  = {
         };
     },
 
-    checkToken: async function(header){
-        const response = await axios({
-            method:'post',
-            url:tokenUrl,
+    checkToken: async function(header) {
+        let res = await axios({
+            method: 'post',
+            url: tokenUrl,
             data: {
                 _id: store.getState().user._id,
                 refreshToken: store.getState().refreshToken
@@ -30,26 +30,10 @@ const AuthService  = {
             credentials: 'include',
             headers: header
         });
-        if(response instanceof Error){
-            return Promise.reject({error: response})
+        if (res instanceof Error) {
+            return Promise.reject(res);
         }
-        else {
-           return Promise.resolve(response);
-        }
-    },
-
-    checkTokenNoPromise: async function(headers){
-        const response = await axios({
-            method:'post',
-            url:tokenUrl,
-            data: {
-                _id: store.getState().user._id,
-                refreshToken: store.getState().refreshToken
-            },
-            credentials: 'include',
-            headers: headers
-        });
-        return !(response instanceof Error);
+        else return Promise.resolve(res);
     }
 
 };

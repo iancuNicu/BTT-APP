@@ -12,9 +12,19 @@ router.post('/token', [TokenController.jwtExpireToken, TokenController.refreshTo
             expired:true
         })
     }
-    else {
-        res.send({
+    else if(!res.expired) {
+        res.status(200).send({
             expired: false
+        });
+    }
+    else if(res.not_logged){
+        res.status(401).send({
+            not_logged: true
+        });
+    }
+    else {
+        res.status(401).send({
+            not_logged: true
         });
     }
 });
