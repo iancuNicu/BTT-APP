@@ -1,12 +1,13 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
+import { withCookies } from 'react-cookie';
 import NavbarView from './../navbar-view/navbar-view';
 
 import routes from '../../routes/routes';
 
 import './main-page.css';
 
-const MainUserLogged = () => {
+const MainUserLogged = ({history}) => {
 
     const reqComponentPaths = ['/training-page/:id', '/offers', '/training', '/calculator',
             '/admin', '/admin/training', '/new-training'];
@@ -21,7 +22,7 @@ const MainUserLogged = () => {
 
     return (
         <div className="main-container">
-            <NavbarView />
+            <NavbarView history={history} />
             <div className="main-wrapper">
                 <h1>General info about oddsmatching!</h1>
                 <Switch>
@@ -33,4 +34,4 @@ const MainUserLogged = () => {
 
 };
 
-export default withRouter(MainUserLogged);
+export default withRouter(withCookies(MainUserLogged));

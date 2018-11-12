@@ -10,6 +10,7 @@ const initialState = {
 //a type to change the refresh token
 const SUBMIT = 'SUBMIT';
 const SUBMIT_ADMIN = 'SUBMIT_ADMIN';
+const LOGOUT = 'LOGOUT';
 
 const authReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -29,6 +30,14 @@ const authReducer = (state = initialState, action) => {
              isAdmin: true,
              admin: user
          }
+        }
+        case LOGOUT: {
+            return {
+                ...state,
+                user: null,
+                refreshToken: null,
+                isLogged: false
+            }
         }
         default : {
             return state;

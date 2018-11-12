@@ -20,22 +20,28 @@ const AuthService  = {
     },
 
     checkToken: async function(header) {
-        let res = await axios({
-            method: 'post',
-            url: tokenUrl,
-            data: {
-                _id: store.getState().user._id,
-                refreshToken: store.getState().refreshToken
-            },
-            credentials: 'include',
-            headers: header
-        });
-        if (res instanceof Error) {
-            return Promise.reject(res);
+        if(!store.getState().user && !store.getState().refreshToken){
+            return Promise.resolve({
+                not_logged: true
+            });
         }
-        else return Promise.resolve(res);
-    }
-
+        else {
+            let res = await axios({
+                method: 'post',
+                url: tokenUrl,
+                data: {
+                    _id: store.getState().user._id,
+                    refreshToken: store.getState().refreshToken
+                },
+                credentials: 'include',
+                headers: header
+            });
+                if (res instanceof Error) {
+                    return Promise.reject(res);
+                }
+                else return Promise.resolve(res);
+            }
+        }
 };
 
 export default AuthService

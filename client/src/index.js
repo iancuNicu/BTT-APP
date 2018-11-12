@@ -10,6 +10,7 @@ import BrowserRouter from "react-router-dom/es/BrowserRouter";
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import  store, { persistor } from './redux/configStore';
 
+
 ReactDOM.render(<CookiesProvider>
                    <PersistGate persistor={persistor}>
                     <BrowserRouter>

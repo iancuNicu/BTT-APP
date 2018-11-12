@@ -12,6 +12,7 @@
     "react": "^16.5.2",
     "react-cookie": "^3.0.4",
     "react-dom": "^16.5.2",
+    "react-icons": "^3.2.2",
     "react-player": "^1.6.6",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
@@ -20,6 +21,7 @@
     "react-signup-login-component": "^1.2.0",
     "react-slick": "^0.23.1",
     "react-transition-group-v2": "^2.4.0",
+    "reactstrap": "^6.5.0",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
     "slick-carousel": "^1.8.1"

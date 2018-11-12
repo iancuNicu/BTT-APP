@@ -20,7 +20,7 @@ class ProtectedRoute extends Component {
         componentDidMount(){
             AuthService.checkToken(this.state.headers).then(res => {
                 if(res.data.expired){
-                    this.props.cookies.set('x-auth', res.headers.authorization);
+                    this.props.cookies.set('auth-token', res.headers.authorization);
                 }
                 else if(res.data.not_logged){
                     this.setState({

@@ -1,9 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+
+import ProfileDropdown from './../../container-components/profile-container/profile-dropdown';
+
 import './navbar.css';
 
-const NavbarView = () => {
+const NavbarView = (props) => {
+
+    const Logout = () => {
+        props.onLogout();
+        props.history.push('/notlogged');
+    };
 
     return(
         <div className="container fixed-top navbar-container">
@@ -25,6 +34,9 @@ const NavbarView = () => {
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/calculator">Calculator</NavLink>
                         </li>
+                        <li className="nav-item">
+                            <ProfileDropdown logout={Logout} />
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -33,4 +45,10 @@ const NavbarView = () => {
 
 };
 
-export default NavbarView;
+const mapDispatchToProps = dispatch => {
+  return {
+      onLogout: () => dispatch({type:'LOGOUT'})
+  }
+};
+
+export default connect(null, mapDispatchToProps)(NavbarView);

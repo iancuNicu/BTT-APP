@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import routes from "../../routes/routes";
-import {Switch, Route, Redirect, withRouter} from "react-router-dom";
-import AuthService from '../../services/auth-service';
+import {Switch, Route, withRouter} from "react-router-dom";
 import {compose} from "redux";
 
 class Home extends Component {
-
-    shouldRedirect = () => {
-        return this.props.location.pathname === '/';
-    };
-
-    shouldLogin = () => {
-        return AuthService.isLogged() && this.props.cookies.get('auth-token');
-    };
 
     mapRoutesToElements = () => (routes.map(route => <Route key={`route.name`} {...route} />));
 
@@ -23,10 +14,6 @@ class Home extends Component {
                 <Switch>
                     { this.mapRoutesToElements() }
                 </Switch>
-                { this.shouldRedirect() ?
-                    ( this.shouldLogin() ? undefined :  <Redirect to='/notlogged' />)
-                    : undefined
-                }
             </div>
         );
     }
