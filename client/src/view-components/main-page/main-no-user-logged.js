@@ -5,14 +5,12 @@ import { TransitionGroup, CSSTransition } from "react-transition-group-v2";
 
 import LoginSignup from "../../container-components/login-signup-page/login-signup";
 import LoginSignUpWindowComponent from "../login-signup-view/login-signup-window";
-import CarouselComponent from "../carousel/carousel";
 
 import './main-page.css';
 
 const MainNoUserComponent = (props) => {
     return(
         <div>
-        <Route path="/:start(login|signup|)" component={CarouselComponent} />
         <TransitionGroup>
             <CSSTransition
                 key={props.location.key}

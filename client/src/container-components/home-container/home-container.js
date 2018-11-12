@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import routes from "../../routes/routes";
 import {Switch, Route, withRouter} from "react-router-dom";
 import {compose} from "redux";
+import CarouselComponent from "../../view-components/carousel/carousel";
 
 class Home extends Component {
 
@@ -11,6 +12,7 @@ class Home extends Component {
     render(){
         return(
             <div>
+                <Route path="/:start(login|signup|notlogged)" component={CarouselComponent} />
                 <Switch>
                     { this.mapRoutesToElements() }
                 </Switch>
