@@ -11,6 +11,8 @@ import TrainingPage from '../view-components/training-view/training-page';
 import VideoView from './../view-components/video-view/video';
 import OfferList from './../container-components/offers-container/offers-list';
 import CalculatorComponent from './../container-components/calculator-container/calculator-component';
+import OddsList from '../view-components/oddsmatcher-view/oddsmatcher-list';
+import withPagination from './../hoc/withPagination';
 import ErrorPage from '../view-components/error-view/error-page';
 
 const routes = [
@@ -93,6 +95,13 @@ const routes = [
       name: 'video-view' + Math.floor(Math.random() * 1000)
     },
     {
+      path: '/odds-list',
+      component: OddsList,
+      exact:true,
+      name: 'odds-list',
+      protected: true
+    },
+    {
         path: '/error',
         component: ErrorPage,
         exact: true,
@@ -104,7 +113,7 @@ routes.forEach(route => {
     if(route.protected){
         const component = route.component;
         route.render = () => (
-            React.createElement(ProtectedRoute, {Component: component}, null )
+            React.createElement(ProtectedRoute, {Component: component, ...route}, null )
         );
         delete route.component;
     }

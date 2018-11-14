@@ -29,7 +29,7 @@ const NavbarView = (props) => {
                             <NavLink className="nav-link" to="/offers">Offers</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/a">Oddsmatching</NavLink>
+                            <NavLink className="nav-link" to="/odds-list">Oddsmatching</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/calculator">Calculator</NavLink>

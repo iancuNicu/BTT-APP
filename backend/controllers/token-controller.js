@@ -59,7 +59,7 @@ const TokenController = {
     },
 
      jwtAuth : (req, res, next) => {
-        passport.authenticate('jwt', (err, user) => {
+        passport.authenticate('user-jwt', (err, user) => {
             if(err){
                 res.status(400).send(err);
             }

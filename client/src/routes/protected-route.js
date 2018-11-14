@@ -36,7 +36,9 @@ class ProtectedRoute extends Component {
             const {Component} = this.props;
 
             return(<Route render={() => {
-                return this.state.shouldRender ? <Component/> : <Redirect to="/notlogged"/>
+                return this.state.shouldRender ?
+                    <Component cookies={this.props.cookies} history={this.props.history}/>
+                    : <Redirect to="/notlogged"/>
             }}/>)
         }
 }

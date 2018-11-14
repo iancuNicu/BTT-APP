@@ -28,7 +28,7 @@ const adminRouter = require('./admin/admin-route');
 const {adminTrainingRouter} = require('./routes/training');
 const {trainingRouter}  = require('./routes/training');
 const videoRouter = require('./routes/video');
-const bettingRouter = require('./routes/betting');
+const bettingRouter = require('./routes/odds-list');
 
 app.use(function(req, res, next) {
     res.set({
@@ -47,7 +47,7 @@ app.use('/api/admin', adminRouter);
 app.use('/api/training', trainingRouter);
 app.use('/api/admin/training', adminTrainingRouter);
 app.use('/api/video', videoRouter);
-app.use('/api/betting', bettingRouter);
+app.use('/api/odds-list', bettingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

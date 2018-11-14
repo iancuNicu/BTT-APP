@@ -10,7 +10,7 @@ import './main-page.css';
 const MainUserLogged = ({history}) => {
 
     const reqComponentPaths = ['/training-page/:id', '/offers', '/training', '/calculator',
-            '/admin', '/admin/training', '/new-training'];
+            '/admin', '/admin/training', '/new-training', '/odds-list'];
 
     const mapRoutes = () => {
         const reqRoutes = routes.filter(route => {
