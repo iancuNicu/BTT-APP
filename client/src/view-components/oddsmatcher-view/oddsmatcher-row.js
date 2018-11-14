@@ -1,9 +1,13 @@
 import React from 'react';
+import CalculatorModal from './../../container-components/calculator-container/calculator-modal';
 
 const OddsRow = ({data}) => {
 
     return (
         <tr>
+            <td className="calculator-row">
+                <CalculatorModal data={data} />
+            </td>
            <td>{data.name}</td>
            <td>{data.sport === 'soccer_epl' ? 'Footbal' : data.sport}</td>
            <td>{data.date_time}</td>

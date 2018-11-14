@@ -59,7 +59,7 @@ const withPagination = (InComponent, limit) => {
                 this.setState({
                     ...this.state,
                     rendered_data: sliced,
-                    currentPage: offset
+                    currentPage: 1
                 })
             }
             else if(offset === this.state.pages){
@@ -68,6 +68,26 @@ const withPagination = (InComponent, limit) => {
                     ...this.state,
                     rendered_data: sliced,
                     currentPage: offset
+                });
+            }
+            else if(offset === -1) {
+                const newOffset = this.state.currentPage -1;
+                const sliced = this.state.data.slice(this.state.limit*(newOffset-1),
+                    this.state.limit*newOffset);
+                this.setState({
+                    ...this.state,
+                    rendered_data: sliced,
+                    currentPage: newOffset
+                });
+            }
+            else if(offset === 0.1){
+                const newOffset = this.state.currentPage + 1;
+                const sliced = this.state.data.slice(this.state.limit*(newOffset-1),
+                    this.state.limit*newOffset);
+                this.setState({
+                    ...this.state,
+                    rendered_data: sliced,
+                    currentPage: newOffset
                 });
             }
             else {
@@ -113,7 +133,7 @@ const withPagination = (InComponent, limit) => {
                         {(this.state.length > 1 && this.state.currentPage < this.state.pages ) ?
                             <PaginationItem>
                                 <PaginationLink next href="#"
-                                                onClick={e => this.handleClick(e, 1)} />
+                                                onClick={e => this.handleClick(e, 0.1)} />
                             </PaginationItem>
                             : undefined }
                     </Pagination> :undefined }

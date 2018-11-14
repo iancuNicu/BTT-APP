@@ -10,6 +10,7 @@ const OddsTable = ({odds_data}) => {
             <Table size="sm" responsive hover bordered>
                 <thead>
                     <tr>
+                       <th></th>
                        <th>Name</th>
                        <th>Sport</th>
                        <th>Date-Time</th>

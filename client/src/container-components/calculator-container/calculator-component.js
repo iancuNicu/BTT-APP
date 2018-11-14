@@ -34,6 +34,19 @@ class CalculatorComponent extends Component {
         };
     }
 
+    componentDidMount(){
+        this.props.input ? this.setState({
+            ...this.state,
+            input_values : {
+                ...this.props.input,
+                back_stake: this.props.input.back_stake || 10,
+                exchange_commision: this.props.exchange_commision || 5
+            }
+        }, () => {
+            this.calculate();
+        }) : undefined;
+    }
+
     handleChange = (event) => {
         if(!isNaN(event.target.value)){
             this.setState({
