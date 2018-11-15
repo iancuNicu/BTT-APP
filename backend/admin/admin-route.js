@@ -1,10 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
 const {AdminModel} =  require('./AdminModel');
 const _ = require('lodash');
-
-const adminSalt = "chapterhouse";
 
 const {passport} = require('./admin-auth');
 
@@ -25,23 +22,9 @@ const loginAdminAuth = (req, res, next) => {
     })(req, res);
 };
 
-const jwtAuth = (req, res, next) => {
-    passport.authenticate('admin-jwt', (err, token) => {
-        if(err){
-            res.status(400).send(err);
-        }
-        else {
-            res.token = token;
-            next();
-        }
-    }, {
-        session:false
-    })(req, res);
-};
-
 const signUpAdminAuth = (req, res, next) => {
 
-    passport.authenticate('signup-admin', (err, user) => {
+    passport.authenticate('signup-admin', (err, admin) => {
         if(err){
             res.status(400).send(err);
         }
@@ -79,12 +62,6 @@ router.post('/login', loginAdminAuth , function(req, res){
     return admin.generateAuthToken().then((token) => {
         res.header('Authorization', token.token).json({email:admin.email, _id: admin._id});
     }).catch(e => res.status(400).send(e));
-});
-
-router.get('/', jwtAuth, function(req, res){
-    res.headers('Authorization', res.token).send({
-        token: "isValid"
-    });
 });
 
 module.exports = router;

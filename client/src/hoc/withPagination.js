@@ -32,22 +32,23 @@ const withPagination = (InComponent, limit) => {
                 url: url,
                 headers: headers
             }).then(res => res.data).catch(e => {
-                console.log("Error ", e);
-                this.history.push('/error');
+                this.props.history.push('/error');
             })
         };
 
         async componentDidMount(){
             const data = await this.apiCall();
             const limit = this.state.limit;
-            this.setState({
-                data: data,
-                render:true,
-                length: data.length,
-                pages: Math.ceil(data.length/limit),
-                rendered_data: data.slice(0, 6),
-                currentPage: 1
-            });
+            if(data){
+                this.setState({
+                    data: data,
+                    render:true,
+                    length: data.length,
+                    pages: Math.ceil(data.length/limit),
+                    rendered_data: data.slice(0, 6),
+                    currentPage: 1
+                });
+            }
         }
 
         handleClick = (e, offset) => {

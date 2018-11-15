@@ -20,6 +20,20 @@ passport.use('signup-admin', new LocalStrategy({
     }
 }));
 
+passport.use('admin-jwt', new JWTStrategy({
+    secretOrKey: adminSalt,
+    jwtFromRequest: ExtractJwt.fromHeader('Authorization')
+},(payload, done) => {
+    if(payload._id){
+        AdminModel.findById(payload._id)
+                  .then(admin => done(null, admin))
+                  .catch(e => done(e, null))
+    }
+    else{
+        done(new Error('Bad Authentication'));
+    }
+}));
+
 passport.use('login-admin', new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'

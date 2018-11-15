@@ -10,7 +10,7 @@ import './main-page.css';
 const MainUserLogged = ({history}) => {
 
     const reqComponentPaths = ['/training-page/:id', '/offers', '/training', '/calculator',
-            '/admin', '/admin/training', '/new-training', '/odds-list'];
+            '/admin', '/admin/training', '/new-training', '/odds-list', '/error'];
 
     const mapRoutes = () => {
         const reqRoutes = routes.filter(route => {
@@ -22,9 +22,8 @@ const MainUserLogged = ({history}) => {
 
     return (
         <div className="main-container">
-            <NavbarView history={history} />
+            {!history.location.pathname.includes('admin') ? <NavbarView history={history} /> : undefined}
             <div className="main-wrapper">
-                <h1>General info about oddsmatching!</h1>
                 <Switch>
                     { mapRoutes() }
                 </Switch>

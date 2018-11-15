@@ -11,6 +11,7 @@ const initialState = {
 const SUBMIT = 'SUBMIT';
 const SUBMIT_ADMIN = 'SUBMIT_ADMIN';
 const LOGOUT = 'LOGOUT';
+const ADMIN_LOGOUT = 'ADMIN_LOGOUT';
 
 const authReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -30,6 +31,13 @@ const authReducer = (state = initialState, action) => {
              isAdmin: true,
              admin: user
          }
+        }
+        case ADMIN_LOGOUT: {
+            return {
+                ...state,
+                admin: null,
+                isAdmin: false
+            }
         }
         case LOGOUT: {
             return {

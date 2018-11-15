@@ -6,14 +6,14 @@ const _ = require('lodash');
 const {passport} = require('../middleware/routes-auth');
 
 const jwtAdminAuth = (req, res, next) => {
-    passport.authenticate('admin-jwt', {session:false} ,(err, token) => {
+    passport.authenticate('admin-jwt', {session:false} ,(err, admin) => {
         if(err){
-            res.token = null;
+            res.admin = null;
             res.error = err;
             next();
         }
         else {
-            res.token = token;
+            res.admin = admin;
             next();
         }
     })(req, res, next);
@@ -62,14 +62,15 @@ trainingRouter.get('/',  jwtUserAuth, (req, res) => {
 });
 
 adminTrainingRouter.get('/', jwtAdminAuth ,(req, res) => {
-    if(res.token) {
-        let trainingCards = getTrainingCards();
-        if(!trainingCards.error){
-            res.status(200).send(trainingCards.picked);
-        }
-        else {
-            res.status(400).send(trainingCards.error);
-        }
+    if(res.admin && !res.error) {
+        getTrainingCards().then(trainingCards => {
+            if(!trainingCards.error){
+                res.status(200).send(trainingCards.trainingList);
+            }
+            else {
+                res.status(400).send(trainingCards.error);
+            }
+        });
     }
     else {
         res.status(401).send(res.error);

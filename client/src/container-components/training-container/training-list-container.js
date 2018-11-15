@@ -30,11 +30,14 @@ class TrainingList extends Component {
       let headers = {
           'Accept' : 'application/json',
           'Content-Type': 'application/json',
-          'authorization':this.props.cookies.get('auth-token')
+          'authorization':this.getAuthHeader(pathname)
           };
       const url = `http://localhost:5000/api${pathname}`;
       return {url, headers};
     };
+
+    getAuthHeader = (path) => path.includes('admin') ? this.props.cookies.get('admin-token')
+                                                     : this.props.cookies.get('auth-token');
 
     apiCall = (url, headers, method) => {
         return axios({

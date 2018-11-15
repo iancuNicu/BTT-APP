@@ -1,8 +1,8 @@
 .login-view-wrapper {
     position: absolute;
     display: flex;
-    top: 16em;
-    left: 54em;
+    top: 30%;
+    left: 65%;
     flex-direction: column;
     justify-content: space-around;
     min-width: 15em;

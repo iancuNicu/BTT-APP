@@ -12,7 +12,6 @@ import VideoView from './../view-components/video-view/video';
 import OfferList from './../container-components/offers-container/offers-list';
 import CalculatorComponent from './../container-components/calculator-container/calculator-component';
 import OddsList from '../view-components/oddsmatcher-view/oddsmatcher-list';
-import withPagination from './../hoc/withPagination';
 import ErrorPage from '../view-components/error-view/error-page';
 
 const routes = [

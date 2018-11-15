@@ -1,4 +1,13 @@
 
+.AdminView {
+    height: 43rem;
+    padding: 10px;
+}
+
+.sidebar-wrapper {
+    width:220px;
+}
+
 .sidebar-admin {
     display: flex;
     flex-direction: column;
@@ -17,4 +26,18 @@
 
 .sidebar-admin .admin-search .form-group {
     flex-direction: column;
+}
+
+#AdminHome {
+    display: flex;
+    flex-direction: column;
+    height: 40rem;
+}
+
+.admin-wrapper {
+    width: 80%;
+}
+
+.admin-main {
+    display:flex;
 }

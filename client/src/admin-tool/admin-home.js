@@ -9,16 +9,20 @@ const AdminHome = (props) => {
 
     return (
         <div id="AdminHome">
-                <h1>Welcome to Admin!</h1>
-                <AdminSidebar/>
-                <AdminSection history={props.history}/>
-                <Switch>
-                    <Route path="/admin/training"
-                           render={() => <TrainingView />} />
-                    <Route path="admin/offers"
-                           render={() => <OfferList history={props.history}
-                           location ={props.location}/>} />
-                </Switch>
+            <h1>Welcome to Admin!</h1>
+            <div className="admin-main">
+                <AdminSidebar history={props.history}/>
+                <div className="admin-wrapper">
+                    <AdminSection history={props.history}/>
+                    <Switch>
+                        <Route path="/admin/training"
+                               render={() => <TrainingView />} />
+                        <Route path="admin/offers"
+                               render={() => <OfferList history={props.history}
+                                                        location ={props.location}/>} />
+                    </Switch>
+                </div>
+            </div>
         </div>
     );
 

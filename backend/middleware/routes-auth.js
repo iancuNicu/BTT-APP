@@ -1,10 +1,11 @@
 const {passport} = require('./../admin/admin-auth');
 const passportJWT = require("passport-jwt");
-const JWTStrategy   = passportJWT.Strategy;
+const JWTStrategy = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
 const {UserModel} = require('./../db/models/UserModel');
-const jwt = require('jsonwebtoken');
 
 const salt = "wintersheart12";
+const adminSalt = "chapterhouse";
 
 passport.use('user-jwt', new JWTStrategy({
     secretOrKey: salt,

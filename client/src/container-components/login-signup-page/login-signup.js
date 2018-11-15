@@ -28,7 +28,11 @@ class LoginSingup extends Component {
         }).then(res => {
             this.props.location.pathname === "/admin" ? this.props.onAdminSubmit(res.data)
                 : this.props.onSubmit(res.data);
-            this.props.cookies.set('auth-token', res.headers.authorization);
+            if(this.props.location.pathname === "/admin"){
+                this.props.cookies.set('admin-token', res.headers.authorization);
+            }
+            else
+                this.props.cookies.set('auth-token', res.headers.authorization);
             this.redirectToHome();
         }).catch(e => console.log("Submit Error ", e));
     };

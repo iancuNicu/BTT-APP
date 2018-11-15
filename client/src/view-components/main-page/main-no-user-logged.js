@@ -10,7 +10,7 @@ import './main-page.css';
 
 const MainNoUserComponent = (props) => {
     return(
-        <div>
+        <div className="container-fluid">
         <TransitionGroup>
             <CSSTransition
                 key={props.location.key}
